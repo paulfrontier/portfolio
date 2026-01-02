@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { useTheme } from '../context/ThemeContext'
 
 const enBref = [
   {
@@ -20,6 +21,133 @@ const enBref = [
 ]
 
 export function Home() {
+  const { holoMode } = useTheme()
+
+  if (holoMode) {
+    return (
+      <div className="space-y-12">
+        {/* Hero Holo */}
+        <section className="min-h-[70vh] flex flex-col justify-center">
+          <div className="holo-panel p-8 max-w-3xl">
+            <div className="flex items-center gap-2 mb-4">
+              <span className="text-xs font-mono text-gray-500">user@portfolio:~$</span>
+            </div>
+            <p className="text-gray-500 font-mono text-sm mb-2">// Salut, je suis</p>
+            <h1 className="text-4xl sm:text-5xl font-bold mb-6 font-mono text-gray-100">
+              <span className="holo-prefix">{"> "}</span>
+              Paul FRONTIER<span className="holo-cursor" />
+            </h1>
+            <p className="text-lg text-gray-400 mb-8 leading-relaxed font-mono">
+              Je construis des applications <span className="text-gray-200">robustes et testees</span> avec
+              Symfony, TypeScript et Rust. Focus clean architecture, automatisation et qualite.
+            </p>
+
+            <div className="flex flex-wrap gap-4">
+              <Link
+                to="/projects"
+                className="holo-tag px-5 py-2.5 font-mono text-sm"
+              >
+                <span className="holo-prefix">{"> "}</span>
+                ./voir_projets
+              </Link>
+              <Link
+                to="/contact"
+                className="holo-tag px-5 py-2.5 font-mono text-sm"
+              >
+                <span className="holo-prefix">{"> "}</span>
+                ./contact
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* En bref Holo */}
+        <section className="holo-panel p-8">
+          <h2 className="text-xl font-bold text-gray-100 mb-6 font-mono">
+            <span className="holo-prefix">{"> "}</span>
+            cat ./en_bref.md
+          </h2>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {enBref.map((block) => (
+              <div key={block.title} className="holo-card p-4">
+                <h3 className="font-mono text-sm text-gray-300 mb-3">
+                  <span className="holo-prefix">{"> "}</span>
+                  {block.title.toLowerCase()}
+                </h3>
+                <ul className="space-y-1.5 text-sm text-gray-500 font-mono">
+                  {block.items.map((item) => (
+                    <li key={item} className="flex items-start gap-2">
+                      <span className="text-gray-600">-</span>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Ce que je fais Holo */}
+        <section className="holo-panel p-8">
+          <h2 className="text-xl font-bold text-gray-100 mb-6 font-mono">
+            <span className="holo-prefix">{"> "}</span>
+            ls ./services/
+          </h2>
+          <div className="grid md:grid-cols-3 gap-6">
+            <div className="space-y-3">
+              <h3 className="font-mono text-sm text-gray-300">
+                <span className="holo-prefix">{"> "}</span>
+                developpement/
+              </h3>
+              <ul className="space-y-2 text-sm text-gray-500 font-mono pl-4">
+                <li>- apps_web_fullstack</li>
+                <li>- apis_rest_eventdriven</li>
+                <li>- apps_mobiles</li>
+                <li>- integrations_tierces</li>
+              </ul>
+            </div>
+            <div className="space-y-3">
+              <h3 className="font-mono text-sm text-gray-300">
+                <span className="holo-prefix">{"> "}</span>
+                architecture/
+              </h3>
+              <ul className="space-y-2 text-sm text-gray-500 font-mono pl-4">
+                <li>- clean_hexagonal</li>
+                <li>- tests_unit_e2e</li>
+                <li>- cicd_pipelines</li>
+                <li>- code_reviews</li>
+              </ul>
+            </div>
+            <div className="space-y-3">
+              <h3 className="font-mono text-sm text-gray-300">
+                <span className="holo-prefix">{"> "}</span>
+                automation/
+              </h3>
+              <ul className="space-y-2 text-sm text-gray-500 font-mono pl-4">
+                <li>- agents_llm</li>
+                <li>- scripts_cli</li>
+                <li>- dev_tooling</li>
+                <li>- code_generation</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        {/* CTA Holo */}
+        <section className="holo-panel p-8 text-center">
+          <p className="text-gray-500 font-mono mb-4">// Un projet en tete ?</p>
+          <Link
+            to="/contact"
+            className="holo-tag px-6 py-3 font-mono text-sm inline-block"
+          >
+            <span className="holo-prefix">{"> "}</span>
+            ./discutons_en --now
+          </Link>
+        </section>
+      </div>
+    )
+  }
+
   return (
     <div className="space-y-20">
       {/* Hero */}

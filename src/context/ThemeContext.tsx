@@ -5,16 +5,34 @@ interface ThemeContextType {
   theme: ThemeName
   setTheme: (theme: ThemeName) => void
   themes: typeof themes
+  holoMode: boolean
+  setHoloMode: (enabled: boolean) => void
 }
 
 const ThemeContext = createContext<ThemeContextType | null>(null)
 
+function getRandomTheme(): ThemeName {
+  const themeNames = themes.map((t) => t.name)
+  return themeNames[Math.floor(Math.random() * themeNames.length)]
+}
+
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const [theme, setThemeState] = useState<ThemeName>(() => {
     if (typeof window !== 'undefined') {
-      return (localStorage.getItem('theme') as ThemeName) || 'violet-blue'
+      const stored = localStorage.getItem('theme') as ThemeName
+      if (stored) return stored
+      const random = getRandomTheme()
+      localStorage.setItem('theme', random)
+      return random
     }
-    return 'violet-blue'
+    return getRandomTheme()
+  })
+
+  const [holoMode, setHoloModeState] = useState<boolean>(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('holoMode') === 'true'
+    }
+    return false
   })
 
   const setTheme = (newTheme: ThemeName) => {
@@ -22,12 +40,21 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     localStorage.setItem('theme', newTheme)
   }
 
+  const setHoloMode = (enabled: boolean) => {
+    setHoloModeState(enabled)
+    localStorage.setItem('holoMode', String(enabled))
+  }
+
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme)
   }, [theme])
 
+  useEffect(() => {
+    document.documentElement.setAttribute('data-holo', String(holoMode))
+  }, [holoMode])
+
   return (
-    <ThemeContext.Provider value={{ theme, setTheme, themes }}>
+    <ThemeContext.Provider value={{ theme, setTheme, themes, holoMode, setHoloMode }}>
       {children}
     </ThemeContext.Provider>
   )

@@ -1,3 +1,5 @@
+import { useTheme } from '../context/ThemeContext'
+
 const EmailIcon = () => (
   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
@@ -77,6 +79,78 @@ const links = {
 }
 
 export function Contact() {
+  const { holoMode } = useTheme()
+
+  if (holoMode) {
+    return (
+      <div className="py-12">
+        <div className="holo-panel p-8">
+          <div className="flex items-center gap-3 mb-6">
+            <span className="text-xs font-mono text-gray-500">system://</span>
+            <h1 className="text-3xl font-bold text-gray-100 font-mono">
+              <span className="holo-prefix">{"> "}</span>
+              contact<span className="holo-cursor" />
+            </h1>
+          </div>
+
+          <p className="text-gray-500 font-mono text-sm mb-8">
+            // Une question ou un projet ? N'hesite pas a me contacter.
+          </p>
+
+          <div className="grid md:grid-cols-2 gap-6 max-w-3xl">
+            {/* Colonne gauche */}
+            <div className="space-y-3">
+              <p className="text-xs font-mono text-gray-600 mb-2"># liens_directs</p>
+              {links.left.map((link) => (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  target={link.external ? '_blank' : undefined}
+                  rel={link.external ? 'noopener noreferrer' : undefined}
+                  className="holo-card flex items-center gap-4 p-4 group"
+                >
+                  <div className="w-8 h-8 flex items-center justify-center text-gray-400 group-hover:text-gray-200 transition-colors">
+                    <link.icon />
+                  </div>
+                  <div className="font-mono">
+                    <p className="text-xs text-gray-600">{`// ${link.label}`}</p>
+                    <p className="text-sm text-gray-300 group-hover:text-gray-100 transition-colors">
+                      {link.value}
+                    </p>
+                  </div>
+                </a>
+              ))}
+            </div>
+
+            {/* Colonne droite - Code */}
+            <div className="space-y-3">
+              <p className="text-xs font-mono text-gray-600 mb-2"># repositories</p>
+              {links.right.map((link) => (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="holo-card flex items-center gap-4 p-4 group"
+                >
+                  <div className="w-8 h-8 flex items-center justify-center text-gray-400 group-hover:text-gray-200 transition-colors">
+                    <link.icon />
+                  </div>
+                  <div className="font-mono">
+                    <p className="text-xs text-gray-600">{`// ${link.label}`}</p>
+                    <p className="text-sm text-gray-300 group-hover:text-gray-100 transition-colors">
+                      {link.value}
+                    </p>
+                  </div>
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div className="py-12">
       <h1 className="text-4xl font-bold mb-2">

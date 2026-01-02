@@ -67,3 +67,122 @@ body > #root {
 .gradient-border {
   border-image: linear-gradient(to right, var(--gradient-from), var(--gradient-to)) 1;
 }
+
+/* ============================================
+   HOLOGRAPHIC MODE STYLES
+   ============================================ */
+
+[data-holo="true"] .holo-panel {
+  position: relative;
+  border-radius: 18px;
+  border: 1px solid color-mix(in srgb, var(--gradient-from) 22%, transparent);
+  background: linear-gradient(180deg, color-mix(in srgb, var(--gradient-to) 8%, transparent), rgba(0,0,0,0.28));
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--gradient-from) 8%, transparent) inset,
+    0 0 40px color-mix(in srgb, var(--gradient-from) 10%, transparent),
+    0 0 120px color-mix(in srgb, var(--gradient-from) 6%, transparent);
+  backdrop-filter: blur(10px);
+  overflow: hidden;
+}
+
+[data-holo="true"] .holo-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255,255,255,0.06) 0px,
+    rgba(255,255,255,0.06) 1px,
+    rgba(0,0,0,0) 3px,
+    rgba(0,0,0,0) 6px
+  );
+  opacity: 0.12;
+  pointer-events: none;
+  mix-blend-mode: overlay;
+  border-radius: 18px;
+}
+
+[data-holo="true"] .holo-card {
+  position: relative;
+  border-radius: 16px;
+  border: 1px solid color-mix(in srgb, var(--gradient-from) 16%, transparent);
+  background: linear-gradient(180deg, color-mix(in srgb, var(--gradient-from) 6%, transparent), rgba(0,0,0,0.35));
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--gradient-from) 6%, transparent) inset,
+    0 0 24px color-mix(in srgb, var(--gradient-from) 6%, transparent);
+  overflow: hidden;
+}
+
+[data-holo="true"] .holo-card::after {
+  content: "";
+  position: absolute;
+  inset: -20%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
+  opacity: 0.045;
+  pointer-events: none;
+}
+
+[data-holo="true"] .holo-card:hover {
+  border-color: color-mix(in srgb, var(--gradient-from) 30%, transparent);
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--gradient-from) 10%, transparent) inset,
+    0 0 40px color-mix(in srgb, var(--gradient-from) 12%, transparent);
+}
+
+[data-holo="true"] .holo-glow {
+  position: absolute;
+  inset-x: 0;
+  bottom: 0;
+  height: 1px;
+  background: linear-gradient(to right, transparent, color-mix(in srgb, var(--gradient-from) 35%, transparent), transparent);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+[data-holo="true"] .group:hover .holo-glow {
+  opacity: 1;
+}
+
+[data-holo="true"] .holo-corner {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  border: 1px solid color-mix(in srgb, var(--gradient-from) 30%, transparent);
+  pointer-events: none;
+}
+
+[data-holo="true"] .holo-cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  margin-left: 4px;
+  background: transparent;
+  transition: background 0.3s;
+}
+
+[data-holo="true"] .group:hover .holo-cursor {
+  background: color-mix(in srgb, var(--gradient-from) 70%, white);
+}
+
+[data-holo="true"] .holo-prefix {
+  color: color-mix(in srgb, var(--gradient-from) 80%, white);
+  opacity: 0.8;
+}
+
+[data-holo="true"] .holo-tag {
+  font-family: ui-monospace, monospace;
+  border-radius: 6px;
+  border: 1px solid color-mix(in srgb, var(--gradient-from) 15%, transparent);
+  background: rgba(0,0,0,0.3);
+  transition: all 0.2s;
+}
+
+[data-holo="true"] .holo-tag:hover {
+  border-color: color-mix(in srgb, var(--gradient-from) 30%, transparent);
+}
+
+[data-holo="true"] .holo-tag.active {
+  background: color-mix(in srgb, var(--gradient-from) 10%, transparent);
+  border-color: color-mix(in srgb, var(--gradient-from) 35%, transparent);
+}

@@ -5,6 +5,7 @@ export interface Project {
   longDescription?: string
   tags: string[]
   image?: string
+  images?: string[]
   link?: string
   github?: string
   date: string
