@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom'
 import { useTheme } from '../context/ThemeContext'
+import { getFeaturedProjects } from '../data/projects'
+import { FeaturedCard } from '../components/FeaturedCard'
 
 const enBref = [
   {
@@ -58,6 +60,19 @@ export function Home() {
                 ./contact
               </Link>
             </div>
+          </div>
+        </section>
+
+        {/* Proof Pack Holo */}
+        <section className="holo-panel p-8">
+          <h2 className="text-xl font-bold text-gray-100 mb-6 font-mono">
+            <span className="holo-prefix">{"> "}</span>
+            ls ./preuves/
+          </h2>
+          <div className="grid md:grid-cols-3 gap-4">
+            {getFeaturedProjects().map((project) => (
+              <FeaturedCard key={project.slug} project={project} />
+            ))}
           </div>
         </section>
 
@@ -176,6 +191,16 @@ export function Home() {
               Me contacter
             </Link>
           </div>
+        </div>
+      </section>
+
+      {/* Proof Pack */}
+      <section>
+        <h2 className="text-2xl font-bold text-white mb-6">Preuves</h2>
+        <div className="grid md:grid-cols-3 gap-4">
+          {getFeaturedProjects().map((project) => (
+            <FeaturedCard key={project.slug} project={project} />
+          ))}
         </div>
       </section>
 
