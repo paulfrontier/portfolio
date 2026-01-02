@@ -1,0 +1,44 @@
+@import "tailwindcss";
+
+:root {
+  --gradient-from: #8b5cf6;
+  --gradient-to: #3b82f6;
+}
+
+[data-theme="violet-blue"] {
+  --gradient-from: #8b5cf6;
+  --gradient-to: #3b82f6;
+}
+
+[data-theme="cyan-teal"] {
+  --gradient-from: #22d3ee;
+  --gradient-to: #14b8a6;
+}
+
+[data-theme="orange-pink"] {
+  --gradient-from: #fb923c;
+  --gradient-to: #ec4899;
+}
+
+[data-theme="gray"] {
+  --gradient-from: #111827;
+  --gradient-to: #4b5563;
+}
+
+body {
+  @apply bg-gray-950 text-gray-100 antialiased;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+.gradient-text {
+  @apply bg-clip-text text-transparent;
+  background-image: linear-gradient(to right, var(--gradient-from), var(--gradient-to));
+}
+
+.gradient-bg {
+  background-image: linear-gradient(to right, var(--gradient-from), var(--gradient-to));
+}
+
+.gradient-border {
+  border-image: linear-gradient(to right, var(--gradient-from), var(--gradient-to)) 1;
+}
